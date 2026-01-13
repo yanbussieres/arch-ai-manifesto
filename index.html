@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Start From Scratch. Use Arch. Let AI Do The Heavy Lifting.</title>
+    <meta name="title" content="Start From Scratch. Use Arch. Let AI Do The Heavy Lifting.">
+    <meta name="description" content="4 hours 38 minutes. Fresh Arch install to full dev environment. AI wrote every config. The old tradeoff is dead.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yanbussieres.github.io/arch-ai-manifesto/">
+    <meta property="og:title" content="Start From Scratch. Use Arch. Let AI Do The Heavy Lifting.">
+    <meta property="og:description" content="4 hours 38 minutes. Fresh Arch install to full dev environment. AI wrote every config. The old tradeoff is dead.">
+    <meta property="og:image" content="https://yanbussieres.github.io/arch-ai-manifesto/card.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://yanbussieres.github.io/arch-ai-manifesto/">
+    <meta name="twitter:title" content="Start From Scratch. Use Arch. Let AI Do The Heavy Lifting.">
+    <meta name="twitter:description" content="4 hours 38 minutes. Fresh Arch install to full dev environment. AI wrote every config. The old tradeoff is dead.">
+    <meta name="twitter:image" content="https://yanbussieres.github.io/arch-ai-manifesto/card.png">
+    <meta name="twitter:creator" content="@yanbussieres">
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#7B68EE">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1 {
+            color: #9D7BFF;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            color: #B19CFF;
+            font-size: 1.3rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #b0b0b0;
+        }
+
+        strong {
+            color: #9D7BFF;
+        }
+
+        em {
+            color: #888;
+        }
+
+        code {
+            background: #1a1a1a;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #B19CFF;
+        }
+
+        pre {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #7B68EE;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #b0b0b0;
+        }
+
+        li strong {
+            color: #B19CFF;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #2a2a2a;
+            margin: 3rem 0;
+        }
+
+        .highlight {
+            color: #9D7BFF;
+        }
+
+        ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .ending {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 12px;
+            border: 1px solid #7B68EE;
+        }
+
+        .whoami {
+            font-family: monospace;
+            font-size: 1rem;
+            color: #7B68EE;
+            white-space: pre;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+        }
+
+        .purple {
+            color: #9D7BFF;
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 0.3rem;
+        }
+
+        .author {
+            margin-top: 2rem;
+            color: #666;
+        }
+
+        .author a {
+            color: #B19CFF;
+            text-decoration: none;
+        }
+
+        .author a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-sub {
+            color: #444;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        a {
+            color: #9D7BFF;
+        }
+
+        .receipt {
+            background: #111;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .receipt strong {
+            color: #7B68EE;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Start From Scratch. Use Arch. Let AI Do The Heavy Lifting.</h1>
+        <p class="subtitle">A confession from someone who has spent too long in the corridors of configuration</p>
+
+        <hr>
+
+        <h2>On the Matter of Conventional Wisdom</h2>
+
+        <p>Everyone tells you the same thing: "Just use Ubuntu. Use a preconfigured dotfiles repo. Don't waste time on setup."</p>
+
+        <p>This advice arrives like a letter from a well-meaning bureaucrat who has never seen your case file. It made sense once, perhaps. In 2015, when we were all different people, living in different machines.</p>
+
+        <p>Here's what I did this morning: I booted a fresh Arch Linux install at 1:21 AM. By 6:00 AM, I had a fully configured Hyprland desktop with vim-style keybindings, 60+ development fonts, a screenshot tool with live OCR, clipboard history, auto-lock, Neovim with LSP, and every dev tool I need.</p>
+
+        <p><strong>4 hours and 38 minutes.</strong> From nothing to a development environment that is, against all probability, <em>exactly</em> what I wanted.</p>
+
+        <p>Not someone else's dotfiles. Not Ubuntu's idea of sensible defaults. Not what some influencer believes you need. Something that belongs to me, though perhaps that's just another comfortable illusion.</p>
+
+        <hr>
+
+        <h2>An Inventory of What Occurred</h2>
+
+        <p>Let me be concrete, if only to prove to myself that something actually happened:</p>
+
+        <ul>
+            <li><strong>Full Hyprland Wayland Compositor</strong> - Configured from scratch with waybar, wofi, dunst</li>
+            <li><strong>60+ Nerd Fonts</strong> - FiraCode, JetBrains Mono, Cascadia Code, Iosevka, and others whose names I've already begun to forget</li>
+            <li><strong>Vim-style Everything</strong> - HJKL for window focus, move, resize. The arrow keys remain, unused, like doors in a building that no longer serves its original purpose.</li>
+            <li><strong>Screenshots with OCR</strong> - <code>Super+Shift+6</code> selects a region and extracts text. A small miracle that feels strangely ordinary.</li>
+            <li><strong>Clipboard History</strong> - <code>Super+V</code> brings up a searchable history. Everything you've copied, waiting patiently to be summoned again.</li>
+            <li><strong>Power Management</strong> - Auto-lock at 5 min, screen off at 10 min, proper sleep handling</li>
+            <li><strong>Neovim</strong> - LSP, completion, telescope. The editor of choice for those who have chosen.</li>
+            <li><strong>Claude Code CLI</strong> - AI pair programmer in the terminal</li>
+            <li><strong>GitHub CLI</strong> - SSH auth, ready to ship</li>
+        </ul>
+
+        <p>Ten items. Whether they constitute accomplishments or merely the elaborate paperwork of existence, I leave for you to decide.</p>
+
+        <hr>
+
+        <h2>The Curious Matter of AI</h2>
+
+        <p>Here is the thing nobody prepared us for: <strong>AI assistants have become remarkably competent at system configuration.</strong></p>
+
+        <p>I didn't memorize Hyprland syntax. I didn't wander through wiki pages written in a dialect that assumes you already speak it fluently. I didn't debug why my screenshot script wasn't working with Wayland's clipboard while old forum posts insisted I use tools from another era, another protocol, another life.</p>
+
+        <p>I described what I wanted. Claude produced the implementation.</p>
+
+        <pre><code>"Add vim-style HJKL keybindings for moving windows"
+"Make Super+Shift+6 select a region and OCR the text to clipboard"
+"Configure hypridle to lock at 5 minutes and screen off at 10"</code></pre>
+
+        <p>Three sentences. Three features. Each one correct on the first attempt, which felt almost suspicious.</p>
+
+        <p>Somewhere, there's a forum thread from 2019 with 47 pages of increasingly desperate replies. The last message reads only "nvm fixed it" with no further explanation. I will never need to find it.</p>
+
+        <hr>
+
+        <h2>Why Arch, of All Things?</h2>
+
+        <p>Because Arch gives you nothing. And in that nothing, there is a peculiar kind of freedom.</p>
+
+        <p>Ubuntu arrives with opinions already formed. Canonical's opinions, specifically. A company that once believed you might want to search Amazon from your desktop. A company that spent years convinced that Snap packages—which take a contemplative 45 seconds to launch—were the future. These are the people who have been making decisions on your behalf, in offices you'll never see, about workflows they've never witnessed.</p>
+
+        <p>Pop!_OS gives you System76's assumptions about how a person should work. If you happen to be that person, wonderful. If not, you'll spend your time removing what they've added rather than adding what you need.</p>
+
+        <p>Fedora serves as Red Hat's proving ground. You participate in testing, though nobody asked if you wanted to.</p>
+
+        <p>Mint is perfectly reasonable. It does what it says. There is nothing wrong with it at all.</p>
+
+        <p>Arch gives you emptiness. You install what you need. Nothing more. No snap. No flatpak unless you specifically request it. No prompts about services you never signed up for. No decisions made by committees in distant rooms.</p>
+
+        <p>When you combine that emptiness with an AI that can implement whatever you describe, something unexpected becomes possible: <strong>a system that is truly yours, built in hours rather than weeks.</strong></p>
+
+        <p>The old tradeoff went like this:</p>
+        <ul>
+            <li>Custom = slow and painful</li>
+            <li>Fast = accept someone else's defaults</li>
+        </ul>
+
+        <p>That tradeoff has quietly expired. Custom and fast can coexist now. The advice that served us well in a previous world may no longer apply to this one.</p>
+
+        <hr>
+
+        <h2>The Procedure</h2>
+
+        <p>Here's how it works, more or less:</p>
+
+        <ol>
+            <li><strong>Install Arch</strong> - Use <code>archinstall</code>, which takes about 10 minutes. It's surprisingly straightforward.</li>
+            <li><strong>Install your AI tool</strong> - <code>yay -S claude-code</code> or whatever you prefer</li>
+            <li><strong>Describe what you want</strong> - Plain English. Be specific about your preferences.</li>
+            <li><strong>Let AI write the configs</strong> - It knows the syntax. It has read documentation you'll never need to read.</li>
+            <li><strong>Iterate until satisfied</strong> - "Actually, make the gaps smaller" takes 5 seconds</li>
+        </ol>
+
+        <p>No documentation labyrinths. No archaeological expeditions through Stack Overflow. No inheriting someone else's configuration and spending hours understanding why things are the way they are.</p>
+
+        <hr>
+
+        <h2>A Brief Defense</h2>
+
+        <p>Some will read this and conclude I'm advocating for ignorance of one's tools. This is a reasonable concern.</p>
+
+        <p>I <em>understand</em> my Hyprland config. I read the code Claude generated. I know what <code>binde</code> vs <code>bind</code> means. I know why <code>wl-copy</code> needs <code>wl-paste --watch cliphist store</code> in the autostart.</p>
+
+        <p>But I didn't have to <em>discover</em> any of that through the traditional method of breaking things and slowly understanding why. AI gave me working code, and I learned by reading something correct rather than debugging something broken.</p>
+
+        <p>Perhaps this is a different kind of learning. Perhaps it's better. Perhaps it's worse. I only know that it worked, and the system boots, and the sun came up, and here we are.</p>
+
+        <hr>
+
+        <h2>An Attempt at a Point</h2>
+
+        <p>Consider not using Ubuntu simply because it's "easier." It's someone else's version of easy. It's what Canonical imagined ease might look like, from their particular vantage point, with their particular assumptions about who you are.</p>
+
+        <p>Consider not cloning dotfiles repos from strangers on GitHub. You're not saving time so much as inheriting decisions you didn't make and may never fully understand.</p>
+
+        <p>Consider the possibility that starting from nothing—true nothing—and describing exactly what you want might now be faster than accepting what others have prepared for you.</p>
+
+        <p>You might end up with a system that's:</p>
+        <ul>
+            <li><strong>Lighter</strong> - Only what you need, nothing you don't</li>
+            <li><strong>Comprehensible</strong> - You know why everything is there because you asked for it</li>
+            <li><strong>Yours</strong> - Every keybinding, every setting, chosen by you</li>
+        </ul>
+
+        <p>4 hours and 38 minutes. That's how long it took. Whether this means anything at all is left as an exercise for the reader.</p>
+
+        <hr>
+
+        <h2>The Evidence</h2>
+
+        <p>This document exists because I asked Claude to "create a resume of everything done since boot and post it to GitHub."</p>
+
+        <p>It read my pacman logs, examined my config files, and produced this text.</p>
+
+        <p>Then it created a repository and pushed it.</p>
+
+        <p>I didn't write a single git command. I didn't open the GitHub web interface. I didn't open a browser.</p>
+
+        <p>This is the world now, apparently. I'm not entirely sure what to make of it, but here we are, and the code compiles, and the windows tile correctly, and perhaps that's enough for one morning.</p>
+
+        <hr>
+
+        <p><em>Built on Arch Linux. Configured with Claude. Written at 6:00 AM because the night had already gone on this long.</em></p>
+
+        <hr>
+
+        <h2>What Got Installed (The Receipt)</h2>
+
+        <div class="receipt">
+            <p><strong>Desktop:</strong> Hyprland, Waybar, Wofi, Dunst, Hyprlock, Hypridle</p>
+            <p><strong>Clipboard & Screenshots:</strong> wl-clipboard, cliphist, grim, slurp, tesseract</p>
+            <p><strong>Dev:</strong> Neovim, Claude Code CLI, GitHub CLI, Rust, jq</p>
+            <p><strong>Terminal:</strong> Alacritty, blesh-git, z</p>
+            <p><strong>Fonts:</strong> 60+ Nerd Font variants</p>
+            <p><strong>Disk Tools:</strong> gdu, disktui, diskonaut, dua-cli</p>
+        </div>
+
+        <hr>
+
+        <div class="ending">
+            <div class="whoami">
+      .-"""-.          .-"""-.
+     /        \        /        \
+    |  O    O  |      |  -    -  |
+    |    __    |      |    <>    |
+     \  \__/  /        \   ==   /
+      '-.  .-'          '-.  .-'
+    _____|  |____    ____|  |____
+   |   KAFKA    |  |  SØREN     |
+   '------------'  '------------'
+         \              /
+          \            /
+           \    +---------+
+            \   | DISTROS |
+             \  +---------+
+              \ | ubuntu  |
+               \| fedora  |
+                | mint    |
+                | arch    | &lt;-- "this one
+                +---------+      gives you
+                                 nothing"
+            </div>
+
+            <p class="purple">SO IT GOES</p>
+
+            <p class="author"><a href="https://github.com/yanbussieres">@yanbussieres</a></p>
+
+            <p class="footer-sub">ARCH · 2026</p>
+        </div>
+    </div>
+</body>
+</html>
