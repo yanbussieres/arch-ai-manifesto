@@ -142,12 +142,13 @@
         }
 
         .whoami {
-            font-family: monospace;
-            font-size: 1rem;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 0.75rem;
             color: #7B68EE;
             white-space: pre;
-            line-height: 1.4;
+            line-height: 1.2;
             margin-bottom: 2rem;
+            letter-spacing: 0;
         }
 
         .purple {
@@ -357,26 +358,18 @@
         <hr>
 
         <div class="ending">
-            <div class="whoami">┌─────────────────────────────────────────┐
-│                                         │
-│   KAFKA          SØREN                  │
-│     ◯              ◯                    │
-│    /|\            /|\                   │
-│    / \            / \                   │
-│     │              │                    │
-│     └──────┬───────┘                    │
-│            │                            │
-│            ▼                            │
-│     ┌────────────┐                      │
-│     │  DISTROS   │                      │
-│     ├────────────┤                      │
-│     │  ubuntu    │                      │
-│     │  fedora    │                      │
-│     │  mint      │                      │
-│     │  arch ◄────┼── "this one gives    │
-│     └────────────┘    you nothing"      │
-│                                         │
-└─────────────────────────────────────────┘</div>
+            <div class="whoami">
+    KAFKA   SØREN
+      o       o          +-----------+
+     /|\     /|\    ---> |  DISTROS  |
+     / \     / \         +-----------+
+                         |  ubuntu   |
+   "and yet..."          |  fedora   |
+                         |  mint     |
+                         |  arch  <----  "this one
+                         +-----------+    gives you
+                                          nothing"
+</div>
 
             <p class="purple">SO IT GOES</p>
 
