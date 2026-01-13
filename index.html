@@ -28,6 +28,17 @@
     <meta name="theme-color" content="#7B68EE">
 
     <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #d0d0d0;
+            --accent-color: #7B68EE;
+            --secondary-accent: #9D7BFF;
+            --dim-color: #555;
+            --code-bg: #111;
+            --scanline-color: rgba(0, 0, 0, 0.5);
+            --flicker-opacity: 0.05;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -35,344 +46,538 @@
         }
 
         body {
-            background: #0d0d0d;
-            color: #e0e0e0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-            line-height: 1.7;
+            line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+            font-size: 16px;
+            padding-bottom: 5rem;
+        }
+
+        /* CRT Effect Layer */
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            background: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+        }
+
+        /* Flicker Animation */
+        .crt-flicker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
+            background: rgba(255, 255, 255, 0.02);
+            opacity: 0;
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.01; }
+            5% { opacity: 0.02; }
+            10% { opacity: 0.005; }
+            15% { opacity: 0.03; }
+            20% { opacity: 0.01; }
+            25% { opacity: 0.04; }
+            30% { opacity: 0.01; }
+            35% { opacity: 0.005; }
+            40% { opacity: 0.03; }
+            45% { opacity: 0.01; }
+            50% { opacity: 0.005; }
+            55% { opacity: 0.04; }
+            60% { opacity: 0.00; }
+            65% { opacity: 0.02; }
+            70% { opacity: 0.01; }
+            75% { opacity: 0.005; }
+            80% { opacity: 0.04; }
+            85% { opacity: 0.01; }
+            90% { opacity: 0.04; }
+            95% { opacity: 0.02; }
+            100% { opacity: 0.005; }
+        }
+
+        /* Text Blur / Bloom */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 2px rgba(123, 104, 238, 0.4), 0 0 10px rgba(123, 104, 238, 0.1); 
         }
 
         .container {
-            max-width: 800px;
+            max-width: 740px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
         }
 
         h1 {
-            color: #9D7BFF;
+            color: var(--secondary-accent);
             font-size: 2rem;
             margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 1rem;
         }
 
         .subtitle {
-            color: #666;
+            color: var(--dim-color);
             font-style: italic;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            font-size: 0.95rem;
+            padding-left: 1.3rem;
+            opacity: 0.8;
         }
 
         h2 {
-            color: #B19CFF;
-            font-size: 1.3rem;
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-top: 5rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 5px;
         }
 
         p {
-            margin-bottom: 1.5rem;
-            color: #b0b0b0;
+            margin-bottom: 1.8rem;
+            color: #c0c0c0;
+            max-width: 65ch;
+            font-size: 1.05rem;
         }
 
         strong {
-            color: #9D7BFF;
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
         }
 
         em {
             color: #888;
+            font-family: serif;
+            font-style: italic;
+            font-size: 1.1em;
         }
 
         code {
-            background: #1a1a1a;
+            background: #111;
             padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            color: #B19CFF;
+            border-radius: 2px;
+            color: var(--secondary-accent);
+            font-size: 0.9em;
+            border: 1px solid #333;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
 
         pre {
-            background: #1a1a1a;
+            background: #0a0a0a;
             padding: 1.5rem;
-            border-radius: 8px;
+            border: 1px solid #333;
+            border-left: 4px solid var(--accent-color);
             overflow-x: auto;
-            margin-bottom: 1.5rem;
-            border-left: 3px solid #7B68EE;
+            margin: 2.5rem 0;
+            box-shadow: inset 0 0 20px #000;
         }
 
         pre code {
             background: none;
             padding: 0;
+            border: none;
+            color: #a0a0a0;
+            box-shadow: none;
         }
 
         ul {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
+            list-style: none;
+            margin-bottom: 2.5rem;
         }
 
         li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             color: #b0b0b0;
+            padding-left: 2rem;
+            position: relative;
         }
 
-        li strong {
-            color: #B19CFF;
+        li::before {
+            content: ">>" ;
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 0.8em;
+            top: 2px;
         }
 
         hr {
             border: none;
-            border-top: 1px solid #2a2a2a;
+            border-top: 1px solid #222;
+            margin: 5rem 0;
+            opacity: 0.5;
+        }
+
+        /* Circular/Loop Timeline */
+        .timeline-container {
+            position: relative;
+            margin: 4rem 0;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                var(--accent-color) 10%, 
+                var(--accent-color) 90%, 
+                transparent
+            );
+        }
+
+        /* The Loop Back */
+        .timeline-loop {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
+            border-left: 2px solid var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            border-bottom-left-radius: 25px;
+            opacity: 0.5;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            padding-left: 60px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 15px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #000;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .timeline-item:last-child .timeline-marker {
+            background: var(--accent-color);
+        }
+
+        .timeline-time {
+            font-size: 0.8rem;
+            color: var(--secondary-accent);
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .timeline-content {
+            font-size: 0.95rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .receipt {
+            font-family: 'Courier New', Courier, monospace;
+            background: #111;
+            padding: 2rem;
+            border: 1px solid #333;
             margin: 3rem 0;
+            font-size: 0.9rem;
+            color: #aaa;
+            box-shadow: 10px 10px 0 #080808;
+            position: relative;
         }
 
-        .highlight {
-            color: #9D7BFF;
-        }
-
-        ol {
+        .receipt::before {
+            content: "RECEIPT_ID: ARCH-AI-2026";
+            display: block;
             margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
+            color: #555;
+            font-size: 0.7rem;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px dotted #222;
+            padding-bottom: 0.2rem;
+        }
+
+        .receipt-key {
+            color: var(--secondary-accent);
+            font-weight: bold;
+        }
+
+        .receipt-val {
+            text-align: right;
         }
 
         .ending {
             text-align: center;
-            margin-top: 4rem;
-            padding: 3rem;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 12px;
-            border: 1px solid #7B68EE;
+            margin-top: 6rem;
+            padding: 4rem 2rem;
+            border: 1px solid #222;
+            background: radial-gradient(circle, #151515 0%, #050505 100%);
+            position: relative;
         }
 
         .whoami {
-            font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
-            font-size: 0.75rem;
-            color: #7B68EE;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-color);
             white-space: pre;
             line-height: 1.2;
-            margin-bottom: 2rem;
-            letter-spacing: 0;
+            margin-bottom: 3rem;
+            display: inline-block;
+            text-align: left;
+            opacity: 0.8;
+            transform: scale(0.9);
         }
 
         .purple {
-            color: #9D7BFF;
+            color: var(--secondary-accent);
             font-weight: bold;
             font-size: 1.2rem;
-            letter-spacing: 0.3rem;
-        }
-
-        .author {
+            letter-spacing: 0.5rem;
+            text-transform: uppercase;
             margin-top: 2rem;
-            color: #666;
+            text-shadow: 0 0 10px var(--accent-color);
         }
 
         .author a {
-            color: #B19CFF;
+            color: #666;
             text-decoration: none;
+            transition: all 0.3s;
         }
 
         .author a:hover {
-            text-decoration: underline;
+            color: #fff;
+            text-shadow: 0 0 5px #fff;
         }
 
-        .footer-sub {
-            color: #444;
-            font-size: 0.8rem;
-            margin-top: 1rem;
+        /* Glitch effect on hover for title */
+        h1:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #fff;
         }
 
-        a {
-            color: #9D7BFF;
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
         }
 
-        .receipt {
-            background: #111;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-        }
-
-        .receipt strong {
-            color: #7B68EE;
+        @media (max-width: 600px) {
+            .container { padding: 2rem 1rem; }
+            h1 { font-size: 1.5rem; }
+            .whoami { font-size: 0.6rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Start From Scratch. Use Arch. Let AI Do The Heavy Lifting.</h1>
-        <p class="subtitle">A confession from someone who has spent too long in the corridors of configuration</p>
+    <div class="crt-overlay"></div>
+    <div class="crt-flicker"></div>
 
-        <hr>
+    <div class="content-wrapper">
+        <div class="container">
+            <h1>Start From Scratch.<br>Use Arch.<br>Let AI Do The Heavy Lifting.</h1>
+            <p class="subtitle">A manifesto for the impatient developer who refuses to compromise.</p>
 
-        <h2>On the Matter of Conventional Wisdom</h2>
+            <hr>
 
-        <p>Everyone tells you the same thing: "Just use Ubuntu. Use a preconfigured dotfiles repo. Don't waste time on setup."</p>
+            <h2>The Bureaucracy of Advice</h2>
 
-        <p>This advice arrives like a letter from a well-meaning bureaucrat who has never seen your case file. It made sense once, perhaps. In 2015, when we were all different people, living in different machines.</p>
-
-        <p>Here's what I did this morning: I booted a fresh Arch Linux install at 1:21 AM. By 6:00 AM, I had a fully configured Hyprland desktop with vim-style keybindings, 60+ development fonts, a screenshot tool with live OCR, clipboard history, auto-lock, Neovim with LSP, and every dev tool I need.</p>
-
-        <p><strong>4 hours and 38 minutes.</strong> From nothing to a development environment that is, against all probability, <em>exactly</em> what I wanted.</p>
-
-        <p>Not someone else's dotfiles. Not Ubuntu's idea of sensible defaults. Not what some influencer believes you need. Something that belongs to me, though perhaps that's just another comfortable illusion.</p>
-
-        <hr>
-
-        <h2>An Inventory of What Occurred</h2>
-
-        <p>Let me be concrete, if only to prove to myself that something actually happened:</p>
-
-        <ul>
-            <li><strong>Full Hyprland Wayland Compositor</strong> - Configured from scratch with waybar, wofi, dunst</li>
-            <li><strong>60+ Nerd Fonts</strong> - FiraCode, JetBrains Mono, Cascadia Code, Iosevka, and others whose names I've already begun to forget</li>
-            <li><strong>Vim-style Everything</strong> - HJKL for window focus, move, resize. The arrow keys remain, unused, like doors in a building that no longer serves its original purpose.</li>
-            <li><strong>Screenshots with OCR</strong> - <code>Super+Shift+6</code> selects a region and extracts text. A small miracle that feels strangely ordinary.</li>
-            <li><strong>Clipboard History</strong> - <code>Super+V</code> brings up a searchable history. Everything you've copied, waiting patiently to be summoned again.</li>
-            <li><strong>Power Management</strong> - Auto-lock at 5 min, screen off at 10 min, proper sleep handling</li>
-            <li><strong>Neovim</strong> - LSP, completion, telescope. The editor of choice for those who have chosen.</li>
-            <li><strong>Claude Code CLI</strong> - AI pair programmer in the terminal</li>
-            <li><strong>GitHub CLI</strong> - SSH auth, ready to ship</li>
-        </ul>
-
-        <p>Ten items. Whether they constitute accomplishments or merely the elaborate paperwork of existence, I leave for you to decide.</p>
-
-        <hr>
-
-        <h2>The Curious Matter of AI</h2>
-
-        <p>Here is the thing nobody prepared us for: <strong>AI assistants have become remarkably competent at system configuration.</strong></p>
-
-        <p>I didn't memorize Hyprland syntax. I didn't wander through wiki pages written in a dialect that assumes you already speak it fluently. I didn't debug why my screenshot script wasn't working with Wayland's clipboard while old forum posts insisted I use tools from another era, another protocol, another life.</p>
-
-        <p>I described what I wanted. Claude produced the implementation.</p>
-
-        <pre><code>"Add vim-style HJKL keybindings for moving windows"
-"Make Super+Shift+6 select a region and OCR the text to clipboard"
-"Configure hypridle to lock at 5 minutes and screen off at 10"</code></pre>
-
-        <p>Three sentences. Three features. Each one correct on the first attempt, which felt almost suspicious.</p>
-
-        <p>Somewhere, there's a forum thread from 2019 with 47 pages of increasingly desperate replies. The last message reads only "nvm fixed it" with no further explanation. I will never need to find it.</p>
-
-        <hr>
-
-        <h2>Why Arch, of All Things?</h2>
-
-        <p>Because Arch gives you nothing. And in that nothing, there is a peculiar kind of freedom.</p>
-
-        <p>Ubuntu arrives with opinions already formed. Canonical's opinions, specifically. A company that once believed you might want to search Amazon from your desktop. A company that spent years convinced that Snap packages—which take a contemplative 45 seconds to launch—were the future. These are the people who have been making decisions on your behalf, in offices you'll never see, about workflows they've never witnessed.</p>
-
-        <p>Pop!_OS gives you System76's assumptions about how a person should work. If you happen to be that person, wonderful. If not, you'll spend your time removing what they've added rather than adding what you need.</p>
-
-        <p>Fedora serves as Red Hat's proving ground. You participate in testing, though nobody asked if you wanted to.</p>
-
-        <p>Mint is perfectly reasonable. It does what it says. There is nothing wrong with it at all.</p>
-
-        <p>Arch gives you emptiness. You install what you need. Nothing more. No snap. No flatpak unless you specifically request it. No prompts about services you never signed up for. No decisions made by committees in distant rooms.</p>
-
-        <p>When you combine that emptiness with an AI that can implement whatever you describe, something unexpected becomes possible: <strong>a system that is truly yours, built in hours rather than weeks.</strong></p>
-
-        <p>The old tradeoff went like this:</p>
-        <ul>
-            <li>Custom = slow and painful</li>
-            <li>Fast = accept someone else's defaults</li>
-        </ul>
-
-        <p>That tradeoff has quietly expired. Custom and fast can coexist now. The advice that served us well in a previous world may no longer apply to this one.</p>
-
-        <hr>
-
-        <h2>The Procedure</h2>
-
-        <p>Here's how it works, more or less:</p>
-
-        <ol>
-            <li><strong>Install Arch</strong> - Use <code>archinstall</code>, which takes about 10 minutes. It's surprisingly straightforward.</li>
-            <li><strong>Install your AI tool</strong> - <code>yay -S claude-code</code> or whatever you prefer</li>
-            <li><strong>Describe what you want</strong> - Plain English. Be specific about your preferences.</li>
-            <li><strong>Let AI write the configs</strong> - It knows the syntax. It has read documentation you'll never need to read.</li>
-            <li><strong>Iterate until satisfied</strong> - "Actually, make the gaps smaller" takes 5 seconds</li>
-        </ol>
-
-        <p>No documentation labyrinths. No archaeological expeditions through Stack Overflow. No inheriting someone else's configuration and spending hours understanding why things are the way they are.</p>
-
-        <hr>
-
-        <h2>A Brief Defense</h2>
-
-        <p>Some will read this and conclude I'm advocating for ignorance of one's tools. This is a reasonable concern.</p>
-
-        <p>I <em>understand</em> my Hyprland config. I read the code Claude generated. I know what <code>binde</code> vs <code>bind</code> means. I know why <code>wl-copy</code> needs <code>wl-paste --watch cliphist store</code> in the autostart.</p>
-
-        <p>But I didn't have to <em>discover</em> any of that through the traditional method of breaking things and slowly understanding why. AI gave me working code, and I learned by reading something correct rather than debugging something broken.</p>
-
-        <p>Perhaps this is a different kind of learning. Perhaps it's better. Perhaps it's worse. I only know that it worked, and the system boots, and the sun came up, and here we are.</p>
-
-        <hr>
-
-        <h2>An Attempt at a Point</h2>
-
-        <p>Consider not using Ubuntu simply because it's "easier." It's someone else's version of easy. It's what Canonical imagined ease might look like, from their particular vantage point, with their particular assumptions about who you are.</p>
-
-        <p>Consider not cloning dotfiles repos from strangers on GitHub. You're not saving time so much as inheriting decisions you didn't make and may never fully understand.</p>
-
-        <p>Consider the possibility that starting from nothing—true nothing—and describing exactly what you want might now be faster than accepting what others have prepared for you.</p>
-
-        <p>You might end up with a system that's:</p>
-        <ul>
-            <li><strong>Lighter</strong> - Only what you need, nothing you don't</li>
-            <li><strong>Comprehensible</strong> - You know why everything is there because you asked for it</li>
-            <li><strong>Yours</strong> - Every keybinding, every setting, chosen by you</li>
-        </ul>
-
-        <p>4 hours and 38 minutes. That's how long it took. Whether this means anything at all is left as an exercise for the reader.</p>
-
-        <hr>
-
-        <h2>The Evidence</h2>
-
-        <p>This document exists because I asked Claude to "create a resume of everything done since boot and post it to GitHub."</p>
-
-        <p>It read my pacman logs, examined my config files, and produced this text.</p>
-
-        <p>Then it created a repository and pushed it.</p>
-
-        <p>I didn't write a single git command. I didn't open the GitHub web interface. I didn't open a browser.</p>
-
-        <p>This is the world now, apparently. I'm not entirely sure what to make of it, but here we are, and the code compiles, and the windows tile correctly, and perhaps that's enough for one morning.</p>
-
-        <hr>
-
-        <p><em>Built on Arch Linux. Configured with Claude. Written at 6:00 AM because the night had already gone on this long.</em></p>
-
-        <hr>
-
-        <h2>What Got Installed (The Receipt)</h2>
-
-        <div class="receipt">
-            <p><strong>Desktop:</strong> Hyprland, Waybar, Wofi, Dunst, Hyprlock, Hypridle</p>
-            <p><strong>Clipboard & Screenshots:</strong> wl-clipboard, cliphist, grim, slurp, tesseract</p>
-            <p><strong>Dev:</strong> Neovim, Claude Code CLI, GitHub CLI, Rust, jq</p>
-            <p><strong>Terminal:</strong> Alacritty, blesh-git, z</p>
-            <p><strong>Fonts:</strong> 60+ Nerd Font variants</p>
-            <p><strong>Disk Tools:</strong> gdu, disktui, diskonaut, dua-cli</p>
-        </div>
-
-        <hr>
-
-        <div class="ending">
-            <div class="whoami">        KAFKA     SOREN
-          o         o             +-----------+
-         /|\       /|\    ---->   |  DISTROS  |
-         / \       / \            +-----------+
-                                  |  ubuntu   |
-       "and yet..."               |  fedora   |
-                                  |  mint     |
-                                  |  arch  *  |  * gives you nothing
-                                  +-----------+</div>
-
-            <p class="purple">SO IT GOES</p>
-
-            <p class="author"><a href="https://github.com/yanbussieres">@yanbussieres</a></p>
-
-            <p class="footer-sub">ARCH · 2026</p>
+            <p>"Use Ubuntu," they chant. "Don't waste time."</p>
+            <p>A chorus of the well-meaning, handing you forms to fill out for a life you don't live. That advice belongs to a world that no longer exists.</p>
+
+            <p>I booted a fresh Arch install at 1:21 UTC. By 6:00 UTC, I had a fully configured Hyprland desktop.</p>
+            <p><strong>4 hours and 38 minutes.</strong> From the void to a system that is <em>mine</em>.</p>
+
+            <hr>
+
+            <h2>Evidence of Existence</h2>
+
+            <p>Not hypothetical productivity. Concrete artifacts:</p>
+
+            <ul>
+                <li><strong>Hyprland</strong> <br> Configured from scratch.</li>
+                <li><strong>Vim-style Everything</strong> <br> HJKL navigation. The mouse is an artifact.</li>
+                <li><strong>OCR Screenshots</strong> <br> <code>Super+Shift+6</code> extracts text.</li>
+                <li><strong>Clipboard History</strong> <br> Searchable.</li>
+                <li><strong>Neovim</strong> <br> LSP, Telescope. Not VS Code.</li>
+                <li><strong>Claude Code</strong> <br> The invisible collaborator.</li>
+            </ul>
+
+            <hr>
+
+            <h2>The Absurdity of Effort</h2>
+
+            <p>Why suffer through wiki pages written by ghosts? The old advice—struggle equals character—is dead.</p>
+
+            <p>I described the destination. Claude built the bridge.</p>
+
+            <pre><code>"Add vim bindings." Done.
+"Configure auto-lock." Done.</code></pre>
+
+            <p>I didn't memorize syntax. I refused the hazing ritual that Linux culture mistakes for education.</p>
+
+            <hr>
+
+            <h2>The Cycle</h2>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-loop"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-time">01:21 UTC</div>
+                    <div class="timeline-title">The Void</div>
+                    <div class="timeline-content">I booted a fresh Arch Linux install. The screen was black. The cursor blinked, waiting.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-time">01:31 UTC</div>
+                    <div class="timeline-title">The Foundation</div>
+                    <div class="timeline-content"><code>archinstall</code> completed. The disk was formatted. The pact was sealed.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-time">01:45 UTC</div>
+                    <div class="timeline-title">The Summoning</div>
+                    <div class="timeline-content"><code>yay -S claude-code</code>. The AI entered the shell. The dialogue began.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-time">02:15 UTC</div>
+                    <div class="timeline-title">The Architecture</div>
+                    <div class="timeline-content">"Add vim bindings." "Configure Hyprland." The config files generated themselves.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-time">04:30 UTC</div>
+                    <div class="timeline-title">The Refinement</div>
+                    <div class="timeline-content">"Make the gaps smaller." "Fix the OCR." The system adapted. The friction vanished.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-time">06:00 UTC</div>
+                    <div class="timeline-title">The Release</div>
+                    <div class="timeline-content">This document was written. And the cycle begins again.</div>
+                </div>
+            </div>
+
+            <p>I understand my config because I read the code it wrote. I didn't suffer for it. Stop inheriting technical debt from dotfiles. Start from zero.</p>
+
+            <hr>
+
+            <h2>The Receipt</h2>
+
+            <div class="receipt">
+                <div class="receipt-item">
+                    <span class="receipt-key">Desktop</span>
+                    <span class="receipt-val">Hyprland, Waybar</span>
+                </div>
+                <div class="receipt-item">
+                    <span class="receipt-key">Clipboard</span>
+                    <span class="receipt-val">wl-clipboard</span>
+                </div>
+                <div class="receipt-item">
+                    <span class="receipt-key">Screenshots</span>
+                    <span class="receipt-val">grim, slurp</span>
+                </div>
+                <div class="receipt-item">
+                    <span class="receipt-key">Dev</span>
+                    <span class="receipt-val">Neovim, Claude</span>
+                </div>
+                <div class="receipt-item">
+                    <span class="receipt-key">Terminal</span>
+                    <span class="receipt-val">Alacritty, z</span>
+                </div>
+                <div class="receipt-item">
+                    <span class="receipt-key">Fonts</span>
+                    <span class="receipt-val">Nerd Fonts</span>
+                </div>
+            </div>
+
+            <p><em>Built on Arch. Configured with Claude. Written at 6:00 AM UTC.</em></p>
+
+            <div class="ending">
+                <div class="whoami">
+      .- """-.          .- """-.
+     /        \        /        \
+    |  O    O  |      |  -    -  |
+    |    __    |      |    &lt;&gt;    |
+     \  \__/  /        \   ==   /
+      '-.  .-'          '-.  .-'
+    _____|  |____    ____|  |____
+   |   KAFKA    |  |  SØREN     |
+   '------------'  '------------'
+         \              /
+          \            /
+           \    +---------+
+            \   | DISTROS |
+             \  +---------+
+              \ | ubuntu  |
+               \| fedora  |
+                | mint    |
+                | arch    | &lt;-- "this one
+                +---------+      gives you
+                                 nothing"
+                </div>
+
+                <p class="purple">SO IT GOES</p>
+
+                <p class="author"><a href="https://github.com/yanbussieres">@yanbussieres</a></p>
+
+                <p class="footer-sub">ARCH · 2026</p>
+            </div>
         </div>
     </div>
 </body>
