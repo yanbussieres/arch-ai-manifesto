@@ -167,28 +167,31 @@ For the skeptics who want specifics:
 
 ---
 
-No excuses left. No more "I'll set up my dev environment this weekend." No more "Linux is too hard." No more "I need to learn more first."
-
-You need to learn less. You need to describe more. You need to let the machine do what machines are good at.
-
----
-
 <div align="center">
 
+<br>
+
 ```
- █     █░ ██░ ██  ▒█████   ▄▄▄       ███▄ ▄███▓ ██▓
-▓█░ █ ░█░▓██░ ██▒▒██▒  ██▒▒████▄    ▓██▒▀█▀ ██▒▓██▒
-▒█░ █ ░█ ▒██▀▀██░▒██░  ██▒▒██  ▀█▄  ▓██    ▓██░▒██▒
-░█░ █ ░█ ░▓█ ░██ ▒██   ██░░██▄▄▄▄██ ▒██    ▒██ ░██░
-░░██▒██▓ ░▓█▒░██▓░ ████▓▒░ ▓█   ▓██▒▒██▒   ░██▒░██░
-░ ▓░▒ ▒   ▒ ░░▒░░░ ▒░▒░▒░  ▒▒   ▓▒█░░ ▒░   ░  ░░▓
-  ▒ ░ ░   ▒ ░▒░ ░  ░ ▒ ▒░   ▒   ▒▒ ░░  ░      ░ ▒ ░
-  ░   ░   ░  ░░ ░░ ░ ░ ▒    ░   ▒   ░      ░    ▒ ░
-    ░     ░  ░  ░    ░ ░        ░  ░       ░    ░
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+▒                                                          ▒
+▒    WHO                                                   ▒
+▒        THE                                               ▒
+▒            FUCK                                          ▒
+▒                 AM I                                     ▒
+▒                                                          ▒
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 ```
 
-**[@yanbussieres](https://github.com/yanbussieres)**
+<br>
 
-*arch btw*
+**PURPLE EVERYTHING**
+
+<br>
+
+```
+@yanbussieres
+```
+
+<sub>TESTING · ARCH · 2026</sub>
 
 </div>
